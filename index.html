@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Holi 🌸</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  color: white;
+  background: linear-gradient(-45deg, #ff0080, #ff8c00, #40e0d0, #8a2be2, #ffff00);
+  background-size: 500% 500%;
+  animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  position: relative;
+  top: 20%;
+  animation: fadeIn 2s ease-in-out;
+}
+
+h1 {
+  font-size: 3.5rem;
+  animation: bounce 2s infinite, shimmer 3s infinite;
+  text-shadow: 0 0 20px yellow;
+  background: linear-gradient(90deg, #fff, #ff0, #fff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.name {
+  font-size: 2rem;
+  margin-top: 10px;
+  animation: float 3s ease-in-out infinite;
+  color: #fff;
+}
+
+p {
+  font-size: 1.3rem;
+  margin: 20px;
+  padding: 0 20px;
+  animation: fadeIn 3s ease-in-out;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: white;
+  color: #ff0080;
+  transition: 0.3s;
+  box-shadow: 0 0 15px white;
+}
+
+button:hover {
+  transform: scale(1.15);
+  background: yellow;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* confetti animation */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0.9;
+  transform: rotate(45deg);
+  animation: fall 5s linear forwards;
+}
+
+@keyframes fall {
+  to { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+}
+
+/* cursor trail dots */
+.trail {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut { to { opacity: 0; transform: scale(2); } }
+
+.splash {
+  position: absolute;
+  border-radius: 50%;
+  animation: explode 1s forwards;
+}
+
+@keyframes explode {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(6); opacity: 0; }
+}
+
+/* boy/girl & water-spray animation */
+#scene {
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.character {
+  position: absolute;
+  font-size: 4rem;
+  animation: bounce 2s infinite;
+}
+#boy { left: 20%; }
+#girl { right: 20%; }
+.droplet {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0,150,255,0.8);
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <h1>Happy Holi 🌈✨</h1>
+
+  <!-- Replace HER NAME below -->
+  <div class="name">For Someone Special 🌸</div>
+
+  <p>
+    Wishing you a Holi filled with bright colors, happiness and positive vibes.  
+    May your exams go amazing and may you always keep smiling.  
+    Stay blessed and keep shining ✨🌸
+  </p>
+
+  <button onclick="createSplash()">Tap for Colors 🎨</button>
+</div>
+
+<!-- playful spraying scene -->
+<div id="scene">
+  <div id="boy">👦</div>
+  <div id="girl">👧</div>
+</div>
+
+<script>
+// reusable color palette
+const colors = ["#ff0080", "#ff8c00", "#40e0d0", "#8a2be2", "#ffff00", "#ff1493"];
+
+function createSplash() {
+  for (let i = 0; i < 25; i++) {
+    let splash = document.createElement("div");
+    splash.classList.add("splash");
+
+    let size = Math.random() * 100 + 20;
+    splash.style.width = size + "px";
+    splash.style.height = size + "px";
+
+    splash.style.left = Math.random() * window.innerWidth + "px";
+    splash.style.top = Math.random() * window.innerHeight + "px";
+
+    splash.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+    document.body.appendChild(splash);
+
+    setTimeout(() => {
+      splash.remove();
+    }, 1000);
+  }
+}
+
+/* Auto splash every 3 seconds */
+setInterval(createSplash, 3000);
+
+/* confetti generator */
+function createConfetti() {
+  let conf = document.createElement("div");
+  conf.classList.add("confetti");
+  conf.style.left = Math.random() * window.innerWidth + "px";
+  conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+  document.body.appendChild(conf);
+  setTimeout(() => conf.remove(), 5000);
+}
+setInterval(createConfetti, 200);
+
+/* mouse trail */
+document.addEventListener("mousemove", function(e) {
+  let dot = document.createElement("div");
+  dot.classList.add("trail");
+  dot.style.left = e.clientX + "px";
+  dot.style.top = e.clientY + "px";
+  dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+  document.body.appendChild(dot);
+  setTimeout(() => dot.remove(), 1000);
+});
+
+/* water-gun spray animation between boy and girl */
+function sprayWater() {
+  const boy = document.getElementById('boy');
+  const girl = document.getElementById('girl');
+  if (!boy || !girl) return;
+
+  let startX = boy.offsetLeft + boy.offsetWidth/2;
+  let startY = boy.offsetTop + boy.offsetHeight/2;
+  let endX = girl.offsetLeft + girl.offsetWidth/2;
+  let endY = girl.offsetTop + girl.offsetHeight/2;
+
+  let drop = document.createElement('div');
+  drop.className = 'droplet';
+  drop.style.left = startX + 'px';
+  drop.style.top = startY + 'px';
+  drop.style.background = colors[Math.floor(Math.random() * colors.length)];
+  document.body.appendChild(drop);
+
+  drop.animate([
+    { transform: `translate(0,0)` },
+    { transform: `translate(${endX-startX}px, ${endY-startY}px)` }
+  ], { duration: 600, easing: 'ease-out' });
+
+  setTimeout(() => drop.remove(), 700);
+}
+setInterval(sprayWater, 800);
+</script>
+
+</body>
+</html>
